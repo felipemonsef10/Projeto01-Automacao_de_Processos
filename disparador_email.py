@@ -9,7 +9,7 @@ from senha_app_gmail import senha
 
 # load_dotenv()
 
-def enviar_email(assunto, corpo_email, arquivo_anexo, nome_arquivo):
+def enviar_email(assunto, corpo_email, arquivo_anexo, nome_arquivo, qtd_anexos=1):
     
     msg = MIMEMultipart()
     msg["Subject"] = assunto
@@ -21,9 +21,16 @@ def enviar_email(assunto, corpo_email, arquivo_anexo, nome_arquivo):
 
     msg.attach(MIMEText(corpo_email, "html"))
 
-    # anexar arquivos
-    with open(arquivo_anexo, "rb") as arquivo:
-        msg.attach(MIMEApplication(arquivo.read(), Name=nome_arquivo))
+    if qtd_anexos == 1:
+        # anexar arquivos
+        with open(arquivo_anexo, "rb") as arquivo:
+            msg.attach(MIMEApplication(arquivo.read(), Name=nome_arquivo))
+    else:
+        for i, arquivo in enumerate(arquivo_anexo):
+            # anexar arquivos
+            with open(arquivo, "rb") as arquivo:
+                msg.attach(MIMEApplication(arquivo.read(), Name=nome_arquivo[i]))
+
 
     servidor = smtplib.SMTP("smtp.gmail.com", 587)
     servidor.starttls()
