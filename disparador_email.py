@@ -9,12 +9,12 @@ from senha_app_gmail import senha
 
 # load_dotenv()
 
-def enviar_email(assunto, corpo_email, arquivo_anexo, nome_arquivo, qtd_anexos=1):
+def enviar_email(from_email, to_email, assunto, corpo_email, arquivo_anexo, nome_arquivo, qtd_anexos=1):
     
     msg = MIMEMultipart()
     msg["Subject"] = assunto
-    msg["From"] = "felipe.monsef.vasc@gmail.com"
-    msg["To"] = "felipe.monsef.vasc@gmail.com"
+    msg["From"] = from_email
+    msg["To"] = to_email
     # msg["Cc"] = "seuemailcopia@gmail.com;outroemailcopia@hotmail.com"
     # msg["Bcc"] = "seuemailcopiaoculta@gmail.com"
     
